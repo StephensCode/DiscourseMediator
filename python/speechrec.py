@@ -3,6 +3,7 @@ import speech_recognition as sr
 from wordfilter import Wordfilter
 import whisper
 import re
+import sys
 
 
 
@@ -18,11 +19,11 @@ def runtime():
     with sr.Microphone() as source:
         print("Testing now! ")
         audio = r.listen(source)
-    # Using Whipser
 
     try:
         #Using Whisper
         text = r.recognize_whisper(audio, language="english")
+        print(text)
         #We need to remove any punctuation and make it lowercase before we put it through wordfilter.
         text = text.lower()
         #Using regex, remove punctuation.
@@ -36,9 +37,6 @@ def runtime():
     if swore:
         print("Discoure paused, watch the langauge!")
 
-
-
-print("Welcome to the Discourse Mediator app! When you are ready, start discussing, if anyone uses innapropriate language, it will be detected and the system will give a warning.")
-
 while(True):
     runtime()
+    sys.stdout.flush()
